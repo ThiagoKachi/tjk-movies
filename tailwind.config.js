@@ -4,6 +4,7 @@ export default {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/flowbite/**/*.js'
   ],
   theme: {
     screens: {
@@ -18,6 +19,6 @@ export default {
       body: ['Raleway'],
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [require('flowbite/plugin')],
 };
 

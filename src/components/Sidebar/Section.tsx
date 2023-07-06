@@ -3,15 +3,21 @@ import React from 'react';
 interface SidebarSectionProps {
   title: string;
   children: React.ReactNode;
+  redirectTo?: string;
 }
 
-export function SidebarSection({ title, children }: SidebarSectionProps) {
+export function SidebarSection({
+  title,
+  children,
+  redirectTo,
+}: SidebarSectionProps) {
   return (
-    <div className="p-2.5 mt-3 flex items-center rounded-sm px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-      <i className="text-2xl">
-        {children}
-      </i>
-      <span className="text-[15px] ml-4 text-gray-200 font-bold">{title}</span>
-    </div>
+    <a
+      href={redirectTo}
+      className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+    >
+      {children}
+      <span className="flex-1 ml-3 text-[16px] whitespace-nowrap">{title}</span>
+    </a>
   );
 }
