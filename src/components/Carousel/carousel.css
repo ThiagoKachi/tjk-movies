@@ -1,0 +1,26 @@
+.swiper-button-next::after {
+  content: '';
+}
+
+.swiper-button-next {
+  background-image: url('../../assets/next-btn.svg') !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: white
+}
+
+.swiper-button-prev::after {
+  content: '';
+}
+
+.swiper-button-prev {
+  background-image: url('../../assets/prev-btn.svg') !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: white
+}
+.image-swiper-button-prev {
+  background-image: url('./assets/prev-bnt.svg') !important;
+}

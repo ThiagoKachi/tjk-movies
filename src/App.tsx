@@ -1,14 +1,16 @@
+import { Home } from './Pages/Home';
 import { Sidebar } from './components/Sidebar';
 
-function App() {  
+import './index.css';
+
+function App() {
   return (
     <div className='bg-white h-screen'>
       <Sidebar />
 
-      <div className="p-4 sm:ml-64 pt-16">
-        aqui vai o conteudo
+      <div className="px-10 md:ml-64 pt-24 pb-2">
+        <Home />
       </div>
-
     </div>
   );
 }
