@@ -1,5 +1,6 @@
 import { BsFilm, BsChevronDown, BsChevronUp } from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
+import { isActive } from '../../utils/isRouteActive';
 
 const genres = [
   {
@@ -51,10 +52,6 @@ export function DropdownSection({
 }: DropdownSectionProps) {
   const { pathname } = useLocation();
 
-  function isActive(redirectTo: string) {
-    return pathname.slice(8) === redirectTo.slice(8);
-  }
-
   return (
     <>
       <div
@@ -81,7 +78,7 @@ export function DropdownSection({
             <Link to={genre.redirectTo} key={genre.name}>
               <div
                 className={`${
-                  isActive(genre.redirectTo) && 'bg-gray-100'
+                  isActive(pathname, genre.redirectTo) && 'bg-gray-100'
                 } px-0 py-2 flex align-middle hover:bg-gray-100 rounded-sm`}
               >
                 <div className="mr-3 border border-gray-600 w-6 text-center rounded-sm">

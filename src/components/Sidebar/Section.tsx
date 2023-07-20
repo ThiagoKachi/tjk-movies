@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { isActive } from '../../utils/isRouteActive';
 
 interface SidebarSectionProps {
   title: string;
@@ -14,12 +15,10 @@ export function SidebarSection({
 }: SidebarSectionProps) {
   const { pathname } = useLocation();
 
-  const isActive = pathname.slice(8) === redirectTo.slice(8);
-
   return (
     <Link to={redirectTo}>
       <div
-        className={`${isActive && 'bg-gray-100'} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group`}
+        className={`${isActive(pathname, redirectTo) && 'bg-gray-100'} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group`}
       >
         {children}
         <span className="flex-1 ml-3 text-[16px] whitespace-nowrap">{title}</span>
