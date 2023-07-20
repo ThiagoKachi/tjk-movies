@@ -1,5 +1,6 @@
-import { Home } from './Pages/Home';
 import { Sidebar } from './components/Sidebar';
+
+import { RoutesComponent } from './routes/routes';
 
 import './index.css';
 
@@ -9,7 +10,7 @@ function App() {
       <Sidebar />
 
       <div className="px-10 md:ml-64 pt-24 pb-2">
-        <Home />
+        <RoutesComponent />
       </div>
     </div>
   );

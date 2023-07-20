@@ -78,21 +78,21 @@ export function Sidebar() {
 
           <ul className="space-y-2 font-medium">
             <li>
-              <SidebarSection title="Home">
+              <SidebarSection title="Home" redirectTo='/home'>
                 <div className="text-lg">
                   <AiOutlineHome />
                 </div>
               </SidebarSection>
             </li>
             <li>
-              <SidebarSection title="Explorar">
+              <SidebarSection title="Explorar" redirectTo='/explore/explore'>
                 <div className="text-lg">
                   <AiOutlineAppstore />
                 </div>
               </SidebarSection>
             </li>
             <li>
-              <SidebarSection title="Favoritos">
+              <SidebarSection title="Favoritos" redirectTo='/explore/favorites'>
                 <div className="text-lg">
                   <AiOutlineHeart />
                 </div>
@@ -107,7 +107,7 @@ export function Sidebar() {
             </li>
 
             <li>
-              <SidebarSection title="Populares">
+              <SidebarSection title="Populares" redirectTo='/explore/popular'>
                 <div className="text-lg">
                   <AiOutlineStar />
                 </div>
@@ -115,7 +115,7 @@ export function Sidebar() {
             </li>
 
             <li>
-              <SidebarSection title="Melhores filmes">
+              <SidebarSection title="Melhores filmes" redirectTo='/explore/best-movies'>
                 <div className="text-lg">
                   <BsBarChart />
                 </div>
@@ -123,7 +123,7 @@ export function Sidebar() {
             </li>
 
             <li>
-              <SidebarSection title="Próximos lançamentos">
+              <SidebarSection title="Lançamentos" redirectTo='/explore/releases'>
                 <div className="text-lg">
                   <BsRocketTakeoff />
                 </div>
