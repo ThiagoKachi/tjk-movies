@@ -1,11 +1,12 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Home } from '../Pages/Home';
-import { Explore } from '../Pages/Explore';
+import { Home } from '../pages/Home';
+import { Explore } from '../pages/Explore';
 
 export function RoutesComponent() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/home" />}/>
       <Route path="/home" element={<Home />}/>
       <Route path="/explore" element={<Explore />}/>
       <Route path="/explore/:gender" element={<Explore />}/>
