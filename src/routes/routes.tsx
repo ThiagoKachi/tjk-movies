@@ -9,7 +9,7 @@ export function RoutesComponent() {
       <Route path="/" element={<Navigate to="/home" />}/>
       <Route path="/home" element={<Home />}/>
       <Route path="/explore" element={<Explore />}/>
-      <Route path="/explore/:gender" element={<Explore />}/>
+      <Route path="/explore/:genre" element={<Explore />}/>
       <Route path="/explore/favorites" element={<Explore />}/>
       <Route path="/explore/popular" element={<Explore />}/>
       <Route path="/explore/best-movies" element={<Explore />}/>

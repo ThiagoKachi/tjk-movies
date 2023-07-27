@@ -28,16 +28,16 @@ const genres = [
     redirectTo: '/explore/science-fiction',
   },
   {
+    name: 'Musical',
+    redirectTo: '/explore/musical',
+  },
+  {
     name: 'Romance',
     redirectTo: '/explore/romance',
   },
   {
-    name: 'Suspense',
-    redirectTo: '/explore/suspense',
-  },
-  {
     name: 'Terror',
-    redirectTo: '/explore/terror',
+    redirectTo: '/explore/horror',
   },
 ];
 

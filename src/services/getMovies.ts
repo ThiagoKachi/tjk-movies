@@ -3,7 +3,6 @@ import api from './api';
 const access_token = import.meta.env.VITE_TOKEN_API;
 
 const options = {
-  method: 'GET',
   headers: {
     accept: 'application/json',
     Authorization: `Bearer ${access_token}`
@@ -12,15 +11,33 @@ const options = {
 
 export const getMovies = {
   getMoviesUpcoming: async () => {
-    const { data } = await api.get('/upcoming', options);
+    const { data } = await api.get('/movie/upcoming', options);
     return data;
   },
   getMoviesPopular: async () => {
-    const { data } = await api.get('/popular', options);
+    const { data } = await api.get('/movie/popular', options);
     return data;
   },
   getMoviesTopRated: async () => {
-    const { data } = await api.get('/top_rated', options);
+    const { data } = await api.get('/movie/top_rated', options);
+    return data;
+  },
+  getDiscover: async () => {
+    const { data } = await api.get('/discover/movie', {
+      ...options,
+      params: {
+        sort_by: 'vote_average.desc'
+      }
+    });
+    return data;
+  },
+  getMoviesByCategory: async (genreId: number) => {
+    const { data } = await api.get('/movie/top_rated', {
+      ...options,
+      params: {
+        with_genres: genreId
+      }
+    });
     return data;
   }
 };

@@ -24,11 +24,11 @@ export function translateTitle(title: string) {
     return 'Fantasia';
   case '/science-fiction':
     return 'Ficção científica';
+  case '/musical':
+    return 'Musicais';
   case '/romance':
     return 'Romance';
-  case '/suspense':
-    return 'Suspense';
-  case '/terror':
+  case '/horror':
     return 'Terror';
   default:
     break;
