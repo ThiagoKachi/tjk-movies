@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { getMovies } from '../../services/getMovies';
 import { useEffect, useState } from 'react';
 import { Movie, MovieDetails } from '../../models/movies';
+import { Skeleton } from '../../components/Skeleton';
 
 const ONE_HOUR = 3600000;
 
@@ -33,7 +34,7 @@ export function Explore() {
   const queryClient = useQueryClient();
 
   const { pathname } = useLocation();
-  const { genre } = useParams();
+  const { genre, movie } = useParams();
 
   const pageTitle = pathname.slice(9);
 
@@ -46,6 +47,23 @@ export function Explore() {
       retry: 3,
       refetchOnWindowFocus: false,
       refetchInterval: ONE_HOUR,
+      onSuccess: (data) => {
+        setMoviesList(data);
+        setIsLoadingMovies(false);
+      },
+      onError: () => {
+        setIsLoadingMovies(false);
+        setIsErrorMovies(true);
+      },
+    }
+  );
+
+  useQuery(
+    ['getByName', movie],
+    () => movie && getMovies.getMovieByName(movie),
+    {
+      retry: 3,
+      refetchOnWindowFocus: false,
       onSuccess: (data) => {
         setMoviesList(data);
         setIsLoadingMovies(false);
@@ -90,7 +108,7 @@ export function Explore() {
     if (pageTitle === 'explore') {
       setMoviesList(dataDiscover.data || []);
     }
-  }, [pageTitle, moviesList]);
+  }, [pageTitle, dataDiscover, dataPopular, dataTopRated, dataUpcoming]);
 
   return (
     <div className="w-full mb-10">
@@ -98,21 +116,39 @@ export function Explore() {
         {translateTitle(pathname)}
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {moviesList?.results?.map((movie: MovieDetails) => (
-          <div key={movie.id}>
-            <Card
-              title={movie.title}
-              image={movie.poster_path}
-              rating={movie.vote_average}
-              year={movie.release_date}
-              size={{
-                height: '250px',
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      {isErrorMovies && (
+        <h2 className='text-lg font-semibold text-gray-500 text-center'>
+          Algo deu errado, tente novamente!
+        </h2>
+      )}
+
+      {isLoadingMovies ? (
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {moviesList?.results?.map((movie: MovieDetails) => (
+            <div key={movie.id}>
+              <Card
+                title={movie.title}
+                image={movie.poster_path}
+                rating={movie.vote_average}
+                year={movie.release_date}
+                size={{
+                  height: '250px',
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
     </div>
   );
 }

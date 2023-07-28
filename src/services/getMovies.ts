@@ -26,7 +26,7 @@ export const getMovies = {
     const { data } = await api.get('/discover/movie', {
       ...options,
       params: {
-        sort_by: 'vote_average.desc'
+        sort_by: 'vote_count.desc'
       }
     });
     return data;
@@ -36,6 +36,15 @@ export const getMovies = {
       ...options,
       params: {
         with_genres: genreId
+      }
+    });
+    return data;
+  },
+  getMovieByName: async (movieName: string) => {
+    const { data } = await api.get('/search/movie', {
+      ...options,
+      params: {
+        query: movieName
       }
     });
     return data;

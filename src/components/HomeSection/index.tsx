@@ -24,7 +24,7 @@ export function HomeSection({
   return (
     <div className='mb-10'>
       <div className='flex justify-between align-middle mb-3'>
-        <h1 className='font-semibold text-slate-700 text-lg'>{title}</h1>
+        <h1 className='font-semibold text-slate-700 text-xl'>{title}</h1>
         <Link to={redirectTo}>
           <div className='flex align-middle hover:underline'>
             <button className='text-slate-800 text-md font-medium'>Ver todos</button>

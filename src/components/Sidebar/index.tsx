@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { SidebarSection } from './Section';
 import { DropdownSection } from './DropdownSection';
+
 import {
   AiOutlineFire,
   AiOutlineSearch,
@@ -12,10 +15,21 @@ import {
 import { BsRocketTakeoff, BsBarChart } from 'react-icons/bs';
 
 export function Sidebar() {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleSearchMovie = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    return navigate(`/explore/movie/${searchQuery}`);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -65,16 +79,18 @@ export function Sidebar() {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-          <div className="relative mb-2">
+          <form className="relative mb-2" onSubmit={handleSearchMovie}>
             <input
-              placeholder="Faça sua busca"
-              className="m-2 w-[95%] p-2 rounded-sm border-2 border-solid border-gray-300 placeholder-gray-400 focus:border-blue-400 focus:outline-none"
+              placeholder="Busque pelo filme"
+              className="m-2 w-[95%] p-2 rounded-sm border-2 border-solid border-gray-300 placeholder-gray-400 placeholder:text-sm focus:border-blue-400 focus:outline-none"
+              value={searchQuery}
+              onChange={handleChange}
             />
 
             <span className="text-xl text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2">
               <AiOutlineSearch />
             </span>
-          </div>
+          </form>
 
           <ul className="space-y-2 font-medium">
             <li>
