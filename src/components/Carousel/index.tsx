@@ -40,6 +40,10 @@ export function Carousel({ movies }: CarouselProps) {
           slidesPerView: 3,
           spaceBetween: 12,
         },
+        1400: {
+          slidesPerView: 4,
+          spaceBetween: 12,
+        },
       }}
       navigation={{
         enabled: true,
@@ -49,6 +53,7 @@ export function Carousel({ movies }: CarouselProps) {
       {movies.map((item) => (
         <SwiperSlide key={item.id}>
           <Card
+            id={item.id}
             title={item.title}
             year={item.release_date}
             image={item.poster_path}

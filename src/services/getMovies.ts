@@ -48,5 +48,9 @@ export const getMovies = {
       }
     });
     return data;
+  },
+  getMovieDetails: async (id: string) => {
+    const { data } = await api.get(`/movie/${id}`, { ...options });
+    return data;
   }
 };

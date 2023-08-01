@@ -136,6 +136,7 @@ export function Explore() {
           {moviesList?.results?.map((movie: MovieDetails) => (
             <div key={movie.id}>
               <Card
+                id={movie.id}
                 title={movie.title}
                 image={movie.poster_path}
                 rating={movie.vote_average}

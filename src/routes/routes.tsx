@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Home } from '../pages/Home';
 import { Explore } from '../pages/Explore';
+import { MovieDetails } from '../pages/Details';
 
 export function RoutesComponent() {
   return (
@@ -15,6 +16,7 @@ export function RoutesComponent() {
       <Route path="/explore/popular" element={<Explore />}/>
       <Route path="/explore/best-movies" element={<Explore />}/>
       <Route path="/explore/releases" element={<Explore />}/>
+      <Route path="/details/:id" element={<MovieDetails />}/>
     </Routes>
   );
 }
