@@ -10,41 +10,59 @@ const options = {
 };
 
 export const getMovies = {
-  getMoviesUpcoming: async () => {
-    const { data } = await api.get('/movie/upcoming', options);
-    return data;
-  },
-  getMoviesPopular: async () => {
-    const { data } = await api.get('/movie/popular', options);
-    return data;
-  },
-  getMoviesTopRated: async () => {
-    const { data } = await api.get('/movie/top_rated', options);
-    return data;
-  },
-  getDiscover: async () => {
-    const { data } = await api.get('/discover/movie', {
+  getMoviesUpcoming: async (page = 1) => {
+    const { data } = await api.get('/movie/upcoming', {
       ...options,
       params: {
-        sort_by: 'vote_count.desc'
+        page,
       }
     });
     return data;
   },
-  getMoviesByCategory: async (genreId: number) => {
+  getMoviesPopular: async (page = 1) => {
+    const { data } = await api.get('/movie/popular', {
+      ...options,
+      params: {
+        page,
+      }
+    });
+    return data;
+  },
+  getMoviesTopRated: async (page = 1) => {
     const { data } = await api.get('/movie/top_rated', {
       ...options,
       params: {
-        with_genres: genreId
+        page,
       }
     });
     return data;
   },
-  getMovieByName: async (movieName: string) => {
+  getDiscover: async (page = 1) => {
+    const { data } = await api.get('/discover/movie', {
+      ...options,
+      params: {
+        sort_by: 'vote_count.desc',
+        page,
+      }
+    });
+    return data;
+  },
+  getMoviesByCategory: async (genreId: number, page = 1) => {
+    const { data } = await api.get('/movie/top_rated', {
+      ...options,
+      params: {
+        with_genres: genreId,
+        page
+      }
+    });
+    return data;
+  },
+  getMovieByName: async (movieName: string, page = 1) => {
     const { data } = await api.get('/search/movie', {
       ...options,
       params: {
-        query: movieName
+        query: movieName,
+        page
       }
     });
     return data;

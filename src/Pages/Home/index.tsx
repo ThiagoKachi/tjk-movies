@@ -10,7 +10,7 @@ export function Home() {
     data: dataUpcoming,
     isError: isErrorUpcoming,
     isLoading: isLoadingUpcoming
-  } = useQuery(['upcoming'], getMovies.getMoviesUpcoming, {
+  } = useQuery(['upcoming'], () => getMovies.getMoviesUpcoming(1), {
     retry: 3,
     refetchOnWindowFocus: false,
     refetchInterval: ONE_HOUR,
@@ -20,7 +20,7 @@ export function Home() {
     data: dataPopular,
     isError: isErrorPopular,
     isLoading: isLoadingPopular
-  } = useQuery(['popular'], getMovies.getMoviesPopular, {
+  } = useQuery(['popular'], () => getMovies.getMoviesPopular(1), {
     retry: 3,
     refetchOnWindowFocus: false,
     refetchInterval: ONE_HOUR,
@@ -30,7 +30,7 @@ export function Home() {
     data: dataTopRated,
     isError: isErrorTopRated,
     isLoading: isLoadingTopRated
-  } = useQuery(['top_rated'], getMovies.getMoviesTopRated, {
+  } = useQuery(['top_rated'], () => getMovies.getMoviesTopRated(1), {
     retry: 3,
     refetchOnWindowFocus: false,
     refetchInterval: ONE_HOUR,
