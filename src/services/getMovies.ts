@@ -1,6 +1,7 @@
 import api from './api';
 
 const access_token = import.meta.env.VITE_TOKEN_API;
+const account_id = import.meta.env.VITE_ACCOUNT_ID;
 
 const options = {
   headers: {
@@ -70,5 +71,24 @@ export const getMovies = {
   getMovieDetails: async (id: string) => {
     const { data } = await api.get(`/movie/${id}`, { ...options });
     return data;
-  }
+  },
+  getFavoritesMovies: async (page = 1) => {
+    const { data } = await api.get(`/account/${account_id}/favorite/movies`, { 
+      ...options,
+      params: {
+        language: 'en-US',
+        page,
+        sort_by: 'created_at.asc'
+      }
+    });
+    return data;
+  },
+  addMovieToFavorites: async (movieId: string) => {
+    const { data } = await api.post(`/account/${account_id}/favorite`, {
+      media_type: 'movie',
+      media_id: Number(movieId),
+      favorite: true
+    }, options);
+    return data;
+  },
 };

@@ -1,19 +1,51 @@
-import { useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { BsArrowRightShort } from 'react-icons/bs';
 
 import { BreadCrumb } from '../../components/Breadcrumb';
+import { Button } from '../../components/Button';
+import { DetailsSkeleton } from '../../components/Skeleton/DetailsSkeleton';
+import { ErrorBadge } from '../../components/ErrorBadge';
+import { ToastComponent } from '../../components/Toast';
 
-import { getMovies } from '../../services/getMovies';
 import { getYear } from '../../utils/getMovieYear';
 import { minutesToHours } from '../../utils/minutesToHours';
 import { formatedBudget } from '../../utils/formatCurrency';
-import { DetailsSkeleton } from '../../components/Skeleton/DetailsSkeleton';
+import { getMovies } from '../../services/getMovies';
+import { MovieDetails } from '../../models/movies';
 
 const ONE_HOUR = 3600000;
 
-export function MovieDetails() {
+export function MovieDetailsPage() {
   const { id } = useParams();
+  const [movieAlreadyFavorite, setMovieAlreadyFavorite] = useState(false);
+  const [filmAddedToFavorite, setFilmAddedToFavorite] = useState<null | boolean>(null);
+
+  function handleCloseToast() {
+    setFilmAddedToFavorite(null);
+  }
+
+  const { data: dataFavorites, refetch } = useQuery(
+    ['favorites'],
+    () => getMovies.getFavoritesMovies(1),
+    {
+      retry: 3,
+      refetchOnWindowFocus: false,
+      refetchInterval: ONE_HOUR,
+    }
+  );
+
+  function findIfMovieIsFavorite() {
+    const movieIsFavorite = dataFavorites?.results.find(
+      (movie: MovieDetails) => movie.id === Number(id)
+    );
+    setMovieAlreadyFavorite(!!movieIsFavorite);
+  }
+
+  useEffect(() => {
+    findIfMovieIsFavorite();
+  }, []);
 
   const { data, isLoading, isError } = useQuery(
     ['movieDetails', id],
@@ -25,25 +57,36 @@ export function MovieDetails() {
     }
   );
 
+  const mutation = useMutation({
+    mutationFn: (movieId: string) => getMovies.addMovieToFavorites(movieId),
+    onSuccess: () => {
+      setMovieAlreadyFavorite(true);
+      setFilmAddedToFavorite(true);
+      refetch();
+    },
+    onError: () => {
+      setFilmAddedToFavorite(false);
+    },
+  });
+
   if (isLoading) {
     return <DetailsSkeleton />;
   }
 
   if (isError) {
     return (
-      <div
-        className="flex items-center justify-center p-4 mb-4 text-md text-red-800 rounded-md bg-red-50 dark:bg-gray-800 dark:text-red-400"
-        role="alert"
-      >
-        <span className="font-medium">
-          Erro ao carregar filmes. Tente novamente!
-        </span>
-      </div>
+      <ErrorBadge />
     );
   }
 
   return (
     <>
+      {filmAddedToFavorite !== null && (
+        <ToastComponent
+          toastType={filmAddedToFavorite ? 'success' : 'error'}
+          onClose={handleCloseToast}
+        />
+      )}
       <BreadCrumb title={data.title} />
       <div className="flex gap-10 flex-col lg:flex-row">
         <img
@@ -105,6 +148,12 @@ export function MovieDetails() {
                 <BsArrowRightShort />
               </a>
             </p>
+
+            <Button
+              isLoading={false}
+              onclick={() => mutation.mutate(id!)}
+              movieIsFavorite={movieAlreadyFavorite}
+            />
           </div>
         </div>
       </div>

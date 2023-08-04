@@ -28,7 +28,7 @@ export function Card({ id, title, year, image, rating, size }: CardProps) {
           </span>
           <div className="ml-2">
             <span className="text-[15px] text-white">
-              {rating ? rating : '-'}
+              {rating ? Number(rating).toFixed(1) : '-'}
             </span>
             <span className="text-[14px] ml-0.5 text-gray-400 font-medium">
             /10

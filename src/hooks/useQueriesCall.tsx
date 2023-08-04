@@ -58,6 +58,8 @@ export function useMoviesQueries() {
     useQuery(['top_rated', page], () => getMovies.getMoviesTopRated(page), queryOptions);
   } else if (pageTitle === 'explore') {
     useQuery(['discover', page], () => getMovies.getDiscover(page), queryOptions);
+  } else if (pageTitle === 'favorites') {
+    useQuery(['favorites', page], () => getMovies.getFavoritesMovies(page), queryOptions);
   } else if (genreId) {
     useQuery(
       ['getByCategory', genreId, page],
@@ -87,6 +89,7 @@ export function useMoviesQueries() {
     nextPage,
     previousPage,
     handlePage,
-    pathname
+    pathname,
+    setPage
   };
 }

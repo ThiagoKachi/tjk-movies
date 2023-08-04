@@ -5,7 +5,6 @@ import { getMovies } from '../../services/getMovies';
 const ONE_HOUR = 3600000;
 
 export function Home() {
-  // useMutation - Para criar, editar ou deletar
   const {
     data: dataUpcoming,
     isError: isErrorUpcoming,
@@ -31,6 +30,16 @@ export function Home() {
     isError: isErrorTopRated,
     isLoading: isLoadingTopRated
   } = useQuery(['top_rated'], () => getMovies.getMoviesTopRated(1), {
+    retry: 3,
+    refetchOnWindowFocus: false,
+    refetchInterval: ONE_HOUR,
+  });
+
+  const {
+    data: dataFavorites,
+    isError: isErrorFavorites,
+    isLoading: isLoadingFavorites
+  } = useQuery(['favorites'], () => getMovies.getFavoritesMovies(1), {
     retry: 3,
     refetchOnWindowFocus: false,
     refetchInterval: ONE_HOUR,
@@ -62,9 +71,9 @@ export function Home() {
       <HomeSection
         title="Favoritos"
         redirectTo='/explore/favorites'
-        movies={dataTopRated}
-        isLoading={isLoadingTopRated}
-        isError={isErrorTopRated}
+        movies={dataFavorites}
+        isLoading={isLoadingFavorites}
+        isError={isErrorFavorites}
       />
     </div>
   );

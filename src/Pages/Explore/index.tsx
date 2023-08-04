@@ -4,6 +4,7 @@ import { MovieDetails } from '../../models/movies';
 import { Skeleton } from '../../components/Skeleton';
 import { Navigation } from '../../components/Navigation';
 import { useMoviesQueries } from '../../hooks/useQueriesCall';
+import { useEffect } from 'react';
 
 export function Explore() {
   const {
@@ -13,8 +14,13 @@ export function Explore() {
     handlePage,
     nextPage,
     previousPage,
-    pathname
+    pathname,
+    setPage,
   } = useMoviesQueries();
+
+  useEffect(() => {
+    setPage(1);
+  }, [pathname]);
 
   return (
     <div className="w-full mb-10">
@@ -63,7 +69,7 @@ export function Explore() {
           prev={previousPage}
           next={nextPage}
           handlePage={handlePage}
-          hasMore={moviesList?.total_pages >= moviesList?.page}
+          hasMore={moviesList?.total_pages > moviesList?.page}
           pages={moviesList?.total_pages}
           currentPage={moviesList?.page}
         />

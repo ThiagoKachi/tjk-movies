@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 interface BreadCrumbProps {
   title: string;
 }
 
 export function BreadCrumb({ title }: BreadCrumbProps) {
+  const navigate = useNavigate();
+
   return (
     <nav className="flex mt-[-10px] mb-4" aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 md:space-x-1">
@@ -40,12 +44,12 @@ export function BreadCrumb({ title }: BreadCrumbProps) {
                 d="m1 9 4-4-4-4"
               />
             </svg>
-            <a
-              href="/explore"
+            <button
+              onClick={() => navigate(-1)}
               className="ml-1 text-md font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"
             >
-              Lista de filmes
-            </a>
+              Voltar a listagem
+            </button>
           </div>
         </li>
         <li aria-current="page">
